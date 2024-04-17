@@ -2,7 +2,6 @@ import { useState, useCallback } from "react"
 import { debounce } from "lodash"
 import { useGLTF, useEnvironment, Text } from "@react-three/drei"
 import { Select, Bloom } from "@react-three/postprocessing"
-import { Price } from "./Price"
 import Popup  from "./Popup"
 import { useRef } from 'react'
 import { useAnimations } from '@react-three/drei'
