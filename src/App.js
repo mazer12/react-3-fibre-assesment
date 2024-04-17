@@ -29,7 +29,7 @@ export const App = () => (
 function Effects() {
   const { size } = useThree()
   useFrame((state, delta) => {
-    easing.damp3(state.camera.position, [state.pointer.x,state.pointer.y, state.pointer.z], 0.3, delta)  //Damp effect to make the camera movement natural
+    easing.damp3(state.camera.position, [state.pointer.x, 1 + state.pointer.y / 2, 8 + Math.atan(state.pointer.x * 2)], 0.3, delta)  //Damp effect to make the camera movement natural
     state.camera.lookAt(state.camera.position.x * 0.1, -1, 0)  
   })
   return (
