@@ -1,2 +1,2 @@
 # react 3 fibre assesment
- 3D model scene
+A 3D model scene made in React 3 fibre.
