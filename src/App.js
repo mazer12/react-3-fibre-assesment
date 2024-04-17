@@ -25,21 +25,16 @@ export const App = () => (
 
 
 
+//Define post processing effects
 function Effects() {
   const { size } = useThree()
   useFrame((state, delta) => {
-    //console.log("Camera Position:", state.camera.position.toArray()); // Print camera position
-    //camera.aspect = size.width / size.height;
-    //camera.updateProjectionMatrix();
-    easing.damp3(state.camera.position, [state.pointer.x,state.pointer.y, 8 + Math.atan(state.pointer.x * 2)], 0.9, delta)
-    state.camera.lookAt(state.camera.position.x * 0.1, -1, 0)
+    easing.damp3(state.camera.position, [state.pointer.x,state.pointer.y, state.pointer.z], 0.3, delta)  //Damp effect to make the camera movement natural
+    state.camera.lookAt(state.camera.position.x * 0.1, -1, 0)  
   })
   return (
     <EffectComposer stencilBuffer disableNormalPass autoClear={false} multisampling={4}>
-      {/* <N8AO halfRes aoSamples={5} aoRadius={0.4} distanceFalloff={0.75} intensity={1} /> */}
-      <Outline visibleEdgeColor="white" hiddenEdgeColor="white" blur width={size.width * 1.25} edgeStrength={10} />
-      {/* <Bloom luminanceThreshold={1} intensity={1} levels={4} mipmapBlur/> */}
-      {/* <TiltShift2 samples={5} blur={0.1} /> */}
+      <N8AO halfRes aoSamples={5} aoRadius={0.4} distanceFalloff={0.75} intensity={1} />    
       <ToneMapping />
     </EffectComposer>
   )

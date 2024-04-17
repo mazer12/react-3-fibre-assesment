@@ -1,8 +1,9 @@
 import React from 'react';
 import { Billboard, Html } from '@react-three/drei';
 import '../src/Popup.css'
-import { useThree } from '@react-three/fiber';
 
+
+//Create popup whenever an object is clicked
 
 const Popup = (props) => {
 
@@ -11,6 +12,7 @@ const Popup = (props) => {
     const popupStyle = {
         top: position.top,
         left: position.left,
+        
     };
 
 
