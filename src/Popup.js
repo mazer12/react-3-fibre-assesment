@@ -1,33 +1,45 @@
-import React from 'react';
-import { Billboard, Html } from '@react-three/drei';
-import '../src/Popup.css'
+import React, { useState } from 'react';
+import { Html } from '@react-three/drei';
+import { useFrame, useThree } from '@react-three/fiber';
+import { Vector3, Euler, Quaternion } from 'three';
+import '../src/Popup.css';
 
+const Popup = ({ onClose }) => {
+  const { camera } = useThree();
+  const [popupPosition, setPopupPosition] = useState(new Vector3());
+  const [popupRotation, setPopupRotation] = useState(new Euler());
 
-//Create popup whenever an object is clicked
+  // Update the position and rotation of the popup based on the camera's position and orientation
+  useFrame(() => {
+    if (camera) {
+      // Get camera position and rotation
+      const { position, quaternion } = camera;
+      
+      // Set the position of the popup to match the camera's position
+      setPopupPosition(position);
 
-const Popup = (props) => {
-
-    const { position, onClose } = props;
-
-    const popupStyle = {
-        top: position.top,
-        left: position.left,
-        
-    };
-
+      // Calculate the rotation of the popup based on the camera's rotation
+      const popupQuaternion = new Quaternion().copy(quaternion);
+      const popupEuler = new Euler().setFromQuaternion(popupQuaternion);
+      
+      // Set the rotation of the popup
+      setPopupRotation(popupEuler);
+    }
+  });
 
   return (
-    <Html>
-    <div className='popup' style={popupStyle}>
-        <div className='popup-inner' >
-            <h3>Popup Opened</h3>
-            <button className='close-button' onClick={onClose}>Close</button>
-            {props.children}
+    <Html position={popupPosition} rotation={popupRotation}>
+      <div className='popup'>
+        <div className='popup-inner'>
+          <h3>Popup Opened</h3>
+          {/* Close button to close the popup */}
+          <button className='close-button' onClick={onClose}>Close</button>
         </div>
-    </div>
+      </div>
     </Html>
-  )
-    
+  );
 };
 
 export default Popup;
+
+

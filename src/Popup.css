@@ -1,7 +1,5 @@
 .popup {
-    position:fixed;
     width: 30vw;
-    z-index: 0;
 }
 
 .popup-inner {
